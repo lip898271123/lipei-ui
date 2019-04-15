@@ -1,0 +1,4 @@
+{
+  "alert": "./packages/alert/index.js",
+  "switch": "./packages/switch/index.js"
+}
