@@ -17,6 +17,10 @@ const install = function(Vue, opts = {}) {
   components.forEach(component => {
     Vue.component(component.name, component);
   });
+  Vue.prototype.$LIPEI = {
+    size: opts.size || '',
+    zIndex: opts.zIndex || 2000
+  };
 };
 /* istanbul ignore if */
 if (typeof window !== 'undefined' && window.Vue) {

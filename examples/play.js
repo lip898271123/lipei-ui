@@ -6,10 +6,12 @@ import App from './app.vue';
 // import '../lib/style/index.css';
 
 //本地测试
-import lipeiui from 'packages/switch';
-import 'packages/style/src/index.scss';
+// import lipeiui from 'packages/switch';
+// import 'packages/style/src/index.scss';
 
-Vue.use(lipeiui);
+import lpSpin from 'packages/spin';
+import 'packages/style/src/index.scss';
+Vue.use(lpSpin);
 
 new Vue({ // eslint-disable-line
   render: h => h(App)

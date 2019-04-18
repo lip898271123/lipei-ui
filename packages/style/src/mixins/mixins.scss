@@ -1,6 +1,15 @@
 @import "function";
 @import "../common/var";
 
+
+@mixin size($width,$height) {
+  width:$width;
+  height:$height;
+}
+
+@mixin square($size) {
+  @include size($size,$size)
+}
 /* Break-points
  -------------------------- */
 @mixin res($key, $map: $--breakpoints) {

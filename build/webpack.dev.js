@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+//const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const config = require('./config');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -56,22 +56,6 @@ module.exports = {
                 isProd ? MiniCssExtractPlugin.loader : 'style-loader',
                 'css-loader',
                 'sass-loader'
-              ]
-            },
-            {
-              test: /\.md$/,
-              use: [
-                {
-                  loader: 'vue-loader',
-                  options: {
-                    compilerOptions: {
-                      preserveWhitespace: false
-                    }
-                  }
-                },
-                {
-                  loader: path.resolve(__dirname, './md-loader/index.js')
-                }
               ]
             },
             {
