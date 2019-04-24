@@ -13,6 +13,10 @@ import lpSpin from 'packages/spin';
 import 'packages/style/src/index.scss';
 Vue.use(lpSpin);
 
+// import lpSplit from 'packages/split';
+// import 'packages/style/src/split.scss';
+// Vue.use(lpSplit);
+
 new Vue({ // eslint-disable-line
   render: h => h(App)
 }).$mount('#app');

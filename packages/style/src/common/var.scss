@@ -9,6 +9,14 @@ $primary-color:#2d8cf0;
 $zindex-spin:8;
 $zindex-spin-fullscreen:2010;
 
+// Animation
+$animation-time:.3s;
+$transition-time:.2s;
+$ease-in-out:ease-in-out;
+
+$font-size-small:12px !default;
+$cursor-disabled:not-allowed;
+
 // Border color
 $border-color-base:#dcdee2;  // outside
 $border-color-split:#e8eaec;  // inside

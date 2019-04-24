@@ -1,5 +1,6 @@
 {
   "alert": "./packages/alert/index.js",
   "switch": "./packages/switch/index.js",
-  "spin": "./packages/spin/index.js"
+  "spin": "./packages/spin/index.js",
+  "split": "./packages/split/index.js"
 }

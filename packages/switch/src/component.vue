@@ -1,174 +1,98 @@
 <template>
-  <div
-    class="el-switch"
-    :class="{ 'is-disabled': switchDisabled, 'is-checked': checked }"
-    role="switch"
-    :aria-checked="checked"
-    :aria-disabled="switchDisabled"
-    @click="switchValue"
-  >
-    <input
-      class="el-switch__input"
-      type="checkbox"
-      @change="handleChange"
-      ref="input"
-      :id="id"
-      :name="name"
-      :true-value="activeValue"
-      :false-value="inactiveValue"
-      :disabled="switchDisabled"
-      @keydown.enter="switchValue"
+    <span
+        tabindex="0"
+        :class="wrapClasses"
+        @click="toggle"
+        @keydown.space="toggle"
     >
-    <span
-      :class="['el-switch__label', 'el-switch__label--left', !checked ? 'is-active' : '']"
-      v-if="inactiveIconClass || inactiveText">
-      <i :class="[inactiveIconClass]" v-if="inactiveIconClass"></i>
-      <span v-if="!inactiveIconClass && inactiveText" :aria-hidden="checked">{{ inactiveText }}</span>
+        <input type="hidden" :name="name" :value="currentValue">
+        <span :class="innerClasses">
+            <slot name="open" v-if="currentValue === trueValue"></slot>
+            <slot name="close" v-if="currentValue === falseValue"></slot>
+        </span>
     </span>
-    <span class="el-switch__core" ref="core" :style="{ 'width': coreWidth + 'px' }">
-    </span>
-    <span
-      :class="['el-switch__label', 'el-switch__label--right', checked ? 'is-active' : '']"
-      v-if="activeIconClass || activeText">
-      <i :class="[activeIconClass]" v-if="activeIconClass"></i>
-      <span v-if="!activeIconClass && activeText" :aria-hidden="!checked">{{ activeText }}</span>
-    </span>
-  </div>
 </template>
 <script>
-  // import emitter from 'lipei-ui/src/mixins/emitter';
-  // import Focus from 'lipei-ui/src/mixins/focus';
-  // import Migrating from 'lipei-ui/src/mixins/migrating';
-  import emitter from 'main/mixins/emitter';
-  import Focus from 'main/mixins/focus';
-  import Migrating from 'main/mixins/migrating';
-  export default {
-    name: 'zySwitch',
-    mixins: [Focus('input'), Migrating, emitter],
-    inject: {
-      elForm: {
-        default: ''
-      }
-    },
-    props: {
-      value: {
-        type: [Boolean, String, Number],
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      width: {
-        type: Number,
-        default: 40
-      },
-      activeIconClass: {
-        type: String,
-        default: ''
-      },
-      inactiveIconClass: {
-        type: String,
-        default: ''
-      },
-      activeText: String,
-      inactiveText: String,
-      activeColor: {
-        type: String,
-        default: ''
-      },
-      inactiveColor: {
-        type: String,
-        default: ''
-      },
-      activeValue: {
-        type: [Boolean, String, Number],
-        default: true
-      },
-      inactiveValue: {
-        type: [Boolean, String, Number],
-        default: false
-      },
-      name: {
-        type: String,
-        default: ''
-      },
-      validateEvent: {
-        type: Boolean,
-        default: true
-      },
-      id: String
-    },
-    data() {
-      return {
-        coreWidth: this.width
-      };
-    },
-    created() {
-      if (!~[this.activeValue, this.inactiveValue].indexOf(this.value)) {
-        this.$emit('input', this.inactiveValue);
-      }
-    },
-    computed: {
-      checked() {
-        return this.value === this.activeValue;
-      },
-      switchDisabled() {
-        return this.disabled || (this.elForm || {}).disabled;
-      }
-    },
-    watch: {
-      checked() {
-        this.$refs.input.checked = this.checked;
-        if (this.activeColor || this.inactiveColor) {
-          this.setBackgroundColor();
+    import { oneOf } from 'main/utils/assist';
+    import Emitter from 'main/mixins/emitter';
+    const prefixCls = 'lp-switch';
+    export default {
+        name: 'iSwitch',
+        mixins: [ Emitter ],
+        props: {
+            value: {
+                type: [String, Number, Boolean],
+                default: false
+            },
+            trueValue: {
+                type: [String, Number, Boolean],
+                default: true
+            },
+            falseValue: {
+                type: [String, Number, Boolean],
+                default: false
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            size: {
+                validator (value) {
+                    return oneOf(value, ['large', 'small', 'default']);
+                },
+                default () {
+                    return !this.$LIPEI || this.$LIPEI.size === '' ? 'default' : this.$LIPEI.size;
+                }
+            },
+            name: {
+                type: String
+            },
+            loading: {
+                type: Boolean,
+                default: false
+            }
+        },
+        data () {
+            return {
+                currentValue: this.value
+            };
+        },
+        computed: {
+            wrapClasses () {
+                return [
+                    `${prefixCls}`,
+                    {
+                        [`${prefixCls}-checked`]: this.currentValue === this.trueValue,
+                        [`${prefixCls}-disabled`]: this.disabled,
+                        [`${prefixCls}-${this.size}`]: !!this.size,
+                        [`${prefixCls}-loading`]: this.loading,
+                    }
+                ];
+            },
+            innerClasses () {
+                return `${prefixCls}-inner`;
+            }
+        },
+        methods: {
+            toggle (event) {
+                event.preventDefault();
+                if (this.disabled || this.loading) {
+                    return false;
+                }
+                const checked = this.currentValue === this.trueValue ? this.falseValue : this.trueValue;
+                this.currentValue = checked;
+                this.$emit('input', checked);
+                this.$emit('on-change', checked);
+                this.dispatch('FormItem', 'on-form-change', checked);
+            }
+        },
+        watch: {
+            value (val) {
+                if (val !== this.trueValue && val !== this.falseValue) {
+                    throw 'Value should be trueValue or falseValue.';
+                }
+                this.currentValue = val;
+            }
         }
-        if (this.validateEvent) {
-          this.dispatch('ElFormItem', 'el.form.change', [this.value]);
-        }
-      }
-    },
-    methods: {
-      handleChange(event) {
-        const val = this.checked ? this.inactiveValue : this.activeValue;
-        this.$emit('input', val);
-        this.$emit('change', val);
-        this.$nextTick(() => {
-          // set input's checked property
-          // in case parent refuses to change component's value
-          this.$refs.input.checked = this.checked;
-        });
-      },
-      setBackgroundColor() {
-        let newColor = this.checked ? this.activeColor : this.inactiveColor;
-        this.$refs.core.style.borderColor = newColor;
-        this.$refs.core.style.backgroundColor = newColor;
-      },
-      switchValue() {
-        !this.switchDisabled && this.handleChange();
-      },
-      getMigratingConfig() {
-        return {
-          props: {
-            'on-color': 'on-color is renamed to active-color.',
-            'off-color': 'off-color is renamed to inactive-color.',
-            'on-text': 'on-text is renamed to active-text.',
-            'off-text': 'off-text is renamed to inactive-text.',
-            'on-value': 'on-value is renamed to active-value.',
-            'off-value': 'off-value is renamed to inactive-value.',
-            'on-icon-class': 'on-icon-class is renamed to active-icon-class.',
-            'off-icon-class': 'off-icon-class is renamed to inactive-icon-class.'
-          }
-        };
-      }
-    },
-    mounted() {
-      /* istanbul ignore if */
-      this.coreWidth = this.width || 40;
-      if (this.activeColor || this.inactiveColor) {
-        this.setBackgroundColor();
-      }
-      this.$refs.input.checked = this.checked;
-    }
-  };
+    };
 </script>

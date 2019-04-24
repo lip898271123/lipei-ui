@@ -9,10 +9,10 @@
     "packages"
   ],
   "scripts": {
-    "bootstrap":"yarn || npm i",
-    "dev":"npm run build:entry && webpack-dev-server --config build/webpack.dev.js",
-    "build:utils":"cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
-    "build:style":"node build/gen-cssfile && gulp build --gulpfile packages/style/gulpfile.js && cp-cli packages/style/lib lib/style",
+    "bootstrap": "yarn || npm i",
+    "dev": "npm run build:entry && webpack-dev-server --config build/webpack.dev.js",
+    "build:utils": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
+    "build:style": "node build/gen-cssfile && gulp build --gulpfile packages/style/gulpfile.js && cp-cli packages/style/lib lib/style",
     "clean": "rimraf lib && rimraf packages/*/lib && rimraf test/**/coverage",
     "build": "npm run clean && npm run build:entry && webpack --config build/webpack.conf.js && webpack --config build/webpack.common.js && webpack --config build/webpack.component.js && npm run build:style && npm run build:utils",
     "lint": "eslint src/**/* test/**/* packages/**/* build/**/* --quiet",
@@ -105,5 +105,5 @@
     "webpack-dev-server": "^3.1.11",
     "webpack-node-externals": "^1.7.2"
   },
-  "style":"lib/style/index.css"
+  "style": "lib/style/index.css"
 }

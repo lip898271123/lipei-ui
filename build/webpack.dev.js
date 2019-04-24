@@ -4,7 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-//const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const config = require('./config');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -92,3 +93,24 @@ module.exports = {
        minimizer:[]
     }
 };
+if (isProd) {
+  webpackConfig.externals = {
+    vue: 'Vue',
+    'vue-router': 'VueRouter',
+    'highlight.js': 'hljs'
+  };
+  webpackConfig.plugins.push(
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:7].css'
+    })
+  );
+  webpackConfig.optimization.minimizer.push(
+    new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: false
+    }),
+    new OptimizeCSSAssetsPlugin({})
+  );
+  webpackConfig.devtool = false;
+}

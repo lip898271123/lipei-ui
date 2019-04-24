@@ -17,6 +17,7 @@ const install = function(Vue, opts = {}) {
   components.forEach(component => {
     Vue.component(component.name, component);
   });
+  Vue.prototype.$Spin = Spin;
   Vue.prototype.$LIPEI = {
     size: opts.size || '',
     zIndex: opts.zIndex || 2000

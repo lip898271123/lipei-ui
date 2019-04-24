@@ -2,15 +2,18 @@
 import Alert from '../packages/alert/index.js';
 import Switch from '../packages/switch/index.js';
 import Spin from '../packages/spin/index.js';
+import Split from '../packages/split/index.js';
 const components = [
   Alert,
   Switch,
   Spin,
+  Split,
 ];
 const install = function(Vue, opts = {}) {
   components.forEach(component => {
     Vue.component(component.name, component);
   });
+  Vue.prototype.$Spin = Spin;
   Vue.prototype.$LIPEI = {
     size: opts.size || '',
     zIndex: opts.zIndex || 2000
@@ -24,5 +27,6 @@ export default {
   install,
   Alert,
   Switch,
-  Spin
+  Spin,
+  Split
 };
