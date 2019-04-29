@@ -2,5 +2,6 @@
   "alert": "./packages/alert/index.js",
   "switch": "./packages/switch/index.js",
   "spin": "./packages/spin/index.js",
-  "split": "./packages/split/index.js"
+  "split": "./packages/split/index.js",
+  "affix": "./packages/affix/index.js"
 }

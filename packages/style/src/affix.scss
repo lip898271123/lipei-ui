@@ -1,0 +1,6 @@
+@import "mixins/mixins";
+@import "common/var";
+.lp-affix {
+    position: fixed;
+    z-index: $zindex-affix;
+}

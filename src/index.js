@@ -3,11 +3,13 @@ import Alert from '../packages/alert/index.js';
 import Switch from '../packages/switch/index.js';
 import Spin from '../packages/spin/index.js';
 import Split from '../packages/split/index.js';
+import Affix from '../packages/affix/index.js';
 const components = [
   Alert,
   Switch,
   Spin,
   Split,
+  Affix,
 ];
 const install = function(Vue, opts = {}) {
   components.forEach(component => {
@@ -28,5 +30,6 @@ export default {
   Alert,
   Switch,
   Spin,
-  Split
+  Split,
+  Affix
 };
