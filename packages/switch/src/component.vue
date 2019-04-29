@@ -17,7 +17,7 @@
     import Emitter from 'main/mixins/emitter';
     const prefixCls = 'lp-switch';
     export default {
-        name: 'iSwitch',
+        name: 'lpSwitch',
         mixins: [ Emitter ],
         props: {
             value: {
