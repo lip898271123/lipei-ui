@@ -1,7 +1,7 @@
 {
   "name": "lipei-ui",
   "version": "1.0.14",
-  "description": "",
+  "description": "github开源组件库",
   "main": "lib/lipei-ui.common.js",
   "files": [
     "lib",
