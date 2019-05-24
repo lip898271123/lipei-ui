@@ -22,21 +22,15 @@
     <lp-button plain type="danger">测试2</lp-button>
     <lp-button type="primary" :loading="true">加载中</lp-button>
     <lp-button type="text">取消</lp-button>
+
     <lp-modal
         v-model="modal1"
         title="Fullscreen Modal"
+        :loading="loading"
+  
     > 
-     <p slot="header" style="color:#f60;text-align:center">
-           
-            <span>Delete confirmation</span>
-        </p>
-        <div style="text-align:center">
-            <p>After this task is deleted, the downstream 10 tasks will not be implemented.</p>
+       <p>After this task is deleted, the downstream 10 tasks will not be implemented.</p>
             <p>Will you delete it?</p>
-        </div>
-        <div slot="footer">
-            <lp-button type="error" size="large">Delete</lp-button>
-        </div>
     </lp-modal>
      <lp-spin></lp-spin>
   </div>
@@ -65,22 +59,7 @@
               //           }, 2000);
               //       }
               //   });
-              // this.$Modal.confirm({
-              //       render: (h) => {
-              //           return h('Input', {
-              //               props: {
-              //                   value: this.value,
-              //                   autofocus: true,
-              //                   placeholder: 'Please enter your name...'
-              //               },
-              //               on: {
-              //                   input: (val) => {
-              //                       this.value = val;
-              //                   }
-              //               }
-              //           })
-              //       }
-              //   })
+              
     },
     methods:{
          test(){
