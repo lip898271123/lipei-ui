@@ -1,6 +1,7 @@
 @import "function";
 @import "../common/var";
 
+$icon-prefix-cls:"#{$css-prefix}icon";
 
 @mixin size($width,$height) {
   width:$width;
@@ -9,6 +10,63 @@
 
 @mixin square($size) {
   @include size($size,$size)
+}
+
+@mixin mask() {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(55, 55, 55, 0.6);
+  height: 100%;
+  z-index: $zindex-modal;
+  &-hidden {
+    display: none;
+  }
+}
+@mixin content-header() {
+  border-bottom: 1px solid $border-color-split;
+  padding: 14px 16px;
+  line-height: 1;
+
+  p,
+  &-inner
+  {
+      display: inline-block;
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      font-size: $--font-size-base;
+      color: $title-color;
+      font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+}
+@mixin close-base($top: 0, $icon-font-size:22px) {
+  font-size: $icon-font-size;
+  color: $legend-color;
+  transition: color $transition-time ease;
+  position: relative;
+  top: $top;
+  &:hover {
+      color: #444;
+  }
+}
+
+@mixin content-close($top: 0, $icon-font-size: 22px) {
+  font-size: $font-size-small;
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  overflow: hidden;
+  cursor: pointer;
+
+  .#{$icon-prefix-cls}-ios-close-empty {
+    @include close-base($top, $icon-font-size);
+  }
 }
 /* Break-points
  -------------------------- */

@@ -82,6 +82,7 @@
             }
         },
         mounted () {
+            //console.log(this.$LIPEI)
             this.showText = this.$slots.default !== undefined;
         }
     };

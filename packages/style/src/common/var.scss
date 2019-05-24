@@ -5,22 +5,71 @@
 // skipAutoTranslation 1
 
 $css-prefix:"lp-";
-$primary-color:#2d8cf0;
 $zindex-spin:8;
 $zindex-affix:10;
+$zindex-modal:1000;
 $zindex-spin-fullscreen:2010;
 
+// Color
+$primary-color:#2d8cf0;
+$success-color:#19be6b;
+$warning-color:#ff9900;
+$error-color:#ed3f14;
+
+// Base
+$font-family:"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+$code-family:Consolas,Menlo,Courier,monospace;
+$title-color:#1c2438;
+$text-color:#495060;
+$legend-color:#999;
+$line-height-base:1.5;
+$body-background:#fff;
+$link-color:#2D8cF0;
+$link-hover-color:tint($link-color, 20%);
+$link-active-color:shade($link-color, 5%);
 // Animation
 $animation-time:.3s;
 $transition-time:.2s;
 $ease-in-out:ease-in-out;
-
 $font-size-small:12px !default;
+$font-size-large:16px !default;
 $cursor-disabled:not-allowed;
 
+
+// Media queries breakpoints
+// Extra small screen / phone
+$screen-xs:480px;
+$screen-xs-min:$screen-xs;
+$screen-xs-max:($screen-xs-min - 1);
+
+// Small screen / tablet
+$screen-sm:576px;
+$screen-sm-min:$screen-sm;
+$screen-sm-max:($screen-sm-min - 1);
+
+// Medium screen / desktop
+$screen-md:768px;
+$screen-md-min:$screen-md;
+$screen-md-max:($screen-md-min - 1);
+
+// Large screen / wide desktop
+$screen-lg:992px;
+$screen-lg-min:$screen-lg;
+$screen-lg-max:($screen-lg-min - 1);
+
+// Extra large screen / full hd
+$screen-xl:1200px;
+$screen-xl-min:$screen-xl;
+$screen-xl-max:($screen-xl-min - 1);
+
+// Extra extra large screen / large descktop
+$screen-xxl:1600px;
+$screen-xxl-min:$screen-xxl;
+$screen-xxl-max:($screen-xxl-min - 1);
 // Border color
-$border-color-base:#dcdee2;  // outside
-$border-color-split:#e8eaec;  // inside
+$border-color-base:#dddee1;  // outside
+$border-color-split:#e9eaec;  // inside
+$border-radius-base:6px;
 $border-width-base:1px;            // width of the border for a component
 $border-style-base:solid;          // style of a components border
 /* Transition
@@ -35,7 +84,7 @@ $--color-transition-base: color .2s cubic-bezier(.645,.045,.355,1) !default;
 /* Color
 -------------------------- */
 /// color|1|BrandColor|0
-$--color-primary: #409EFF !default;
+$--color-primary: #2d8cf0 !default;
 /// color|1|BackgroundColor|4
 $--color-white: #FFFFFF !default;
 /// color|1|BackgroundColor|4
@@ -50,13 +99,13 @@ $--color-primary-light-7: mix($--color-white, $--color-primary, 70%) !default; /
 $--color-primary-light-8: mix($--color-white, $--color-primary, 80%) !default; /* d9ecff */
 $--color-primary-light-9: mix($--color-white, $--color-primary, 90%) !default; /* ecf5ff */
 /// color|1|SecondaryColor|1
-$--color-success: #67C23A !default;
+$--color-success: #19be6b !default;
 /// color|1|SecondaryColor|1
-$--color-warning: #E6A23C !default;
+$--color-warning: #ff9900 !default;
 /// color|1|SecondaryColor|1
-$--color-danger: #F56C6C !default;
+$--color-danger: #ed4014 !default;
 /// color|1|SecondaryColor|1
-$--color-info: #909399 !default;
+$--color-info: #8799a3 !default;
 
 $--color-success-light: mix($--color-white, $--color-success, 80%) !default;
 $--color-warning-light: mix($--color-white, $--color-warning, 80%) !default;
@@ -163,23 +212,6 @@ $--disabled-border-base: $--border-color-light !default;
 $--icon-color: #666 !default;
 $--icon-color-base: $--color-info !default;
 
-/* Alert
--------------------------- */
-$--alert-padding: 8px 16px !default;
-$--alert-border-radius: $--border-radius-base !default;
-$--alert-title-font-size: 13px !default;
-$--alert-description-font-size: 12px !default;
-$--alert-close-font-size: 12px !default;
-$--alert-close-customed-font-size: 13px !default;
-
-$--alert-success-color: $--color-success-lighter !default;
-$--alert-info-color: $--color-info-lighter !default;
-$--alert-warning-color: $--color-warning-lighter !default;
-$--alert-danger-color: $--color-danger-lighter !default;
-
-$--alert-icon-size: 16px !default;
-$--alert-icon-large-size: 28px !default;
-
 /* Switch
 -------------------------- */
 /// color||Color|0
@@ -227,3 +259,84 @@ $--breakpoints-spec: (
   'lg-and-down': (max-width: $--xl - 1),
   'xl-only' : (min-width: $--xl),
 );
+
+
+/* Button
+-------------------------- */
+/// fontSize||Font|1
+$--button-font-size: $--font-size-base !default;
+/// fontWeight||Font|1
+$--button-font-weight: $--font-weight-primary !default;
+/// borderRadius||Border|2
+$--button-border-radius: $--border-radius-base !default;
+/// padding||Spacing|3
+$--button-padding-vertical: 8px !default;
+/// padding||Spacing|3
+$--button-padding-horizontal: 15px !default;
+
+/// fontSize||Font|1
+$--button-large-font-size: $--font-size-base !default;
+/// borderRadius||Border|2
+$--button-large-border-radius: $--border-radius-base !default;
+/// padding||Spacing|3
+$--button-large-padding-vertical: 10px !default;
+/// padding||Spacing|3
+$--button-large-padding-horizontal: 17px !default;
+
+/// fontSize||Font|1
+$--button-small-font-size: 12px !default;
+$--button-small-border-radius: #{$--border-radius-base - 1} !default;
+/// padding||Spacing|3
+$--button-small-padding-vertical: 7px !default;
+/// padding||Spacing|3
+$--button-small-padding-horizontal: 12px !default;
+/// fontSize||Font|1
+
+
+/// color||Color|0
+$--button-default-font-color: $--color-text-regular !default;
+/// color||Color|0
+$--button-default-background-color: $--color-white !default;
+/// color||Color|0
+$--button-default-border-color: $--border-color-base !default;
+
+/// color||Color|0
+$--button-disabled-font-color: $--color-text-placeholder !default;
+/// color||Color|0
+$--button-disabled-background-color: $--color-white !default;
+/// color||Color|0
+$--button-disabled-border-color: $--border-color-lighter !default;
+
+/// color||Color|0
+$--button-primary-border-color: $--color-primary !default;
+/// color||Color|0
+$--button-primary-font-color: $--color-white !default;
+/// color||Color|0
+$--button-primary-background-color: $--color-primary !default;
+/// color||Color|0
+$--button-success-border-color: $--color-success !default;
+/// color||Color|0
+$--button-success-font-color: $--color-white !default;
+/// color||Color|0
+$--button-success-background-color: $--color-success !default;
+/// color||Color|0
+$--button-warning-border-color: $--color-warning !default;
+/// color||Color|0
+$--button-warning-font-color: $--color-white !default;
+/// color||Color|0
+$--button-warning-background-color: $--color-warning !default;
+/// color||Color|0
+$--button-danger-border-color: $--color-danger !default;
+/// color||Color|0
+$--button-danger-font-color: $--color-white !default;
+/// color||Color|0
+$--button-danger-background-color: $--color-danger !default;
+/// color||Color|0
+$--button-info-border-color: $--color-info !default;
+/// color||Color|0
+$--button-info-font-color: $--color-white !default;
+/// color||Color|0
+$--button-info-background-color: $--color-info !default;
+
+$--button-hover-tint-percent: 20% !default;
+$--button-active-shade-percent: 10% !default;

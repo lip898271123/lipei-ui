@@ -1,7 +1,8 @@
 {
-  "alert": "./packages/alert/index.js",
   "switch": "./packages/switch/index.js",
   "spin": "./packages/spin/index.js",
   "split": "./packages/split/index.js",
-  "affix": "./packages/affix/index.js"
+  "affix": "./packages/affix/index.js",
+  "button":"./packages/button/index.js",
+  "modal": "./packages/modal/index.js"
 }

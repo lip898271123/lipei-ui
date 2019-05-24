@@ -18,9 +18,14 @@ const install = function(Vue, opts = {}) {
     Vue.component(component.name, component);
   });
   Vue.prototype.$Spin = Spin;
+  Vue.prototype.$Modal = Modal;
   Vue.prototype.$LIPEI = {
     size: opts.size || '',
-    zIndex: opts.zIndex || 2000
+    transfer: 'transfer' in opts ? opts.transfer : '',
+    zIndex: opts.zIndex || 2000,
+    modal:{
+      maskClosable: opts.modal ? 'maskClosable' in opts.modal ? opts.modal.maskClosable : '' : ''
+    }
   };
 };
 /* istanbul ignore if */
